@@ -17,7 +17,7 @@ const MainPage = () => {
   const [shortLink, setShortLink] = useState(null);
   const clipboard = useClipboard();
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef?.current?.focus();
   });
 
   const formik = useFormik({
