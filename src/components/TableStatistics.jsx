@@ -33,22 +33,18 @@ const TableStatistics = ({ shortLink }) => {
     return resultStr;
   };
   useEffect(() => {
-    if (!auth.user) {
-      navigate('/login');
-    } else {
-      const fetchContent = async () => {
-        try {
-          const { data } = await axios.get(`http://79.143.31.216/statistics?${getParams()}`, {
-            headers: { Authorization: `Bearer ${auth.user?.access_token}` },
-          });
-          updateStatistics(data);
-        } catch (error) {
-          navigate('/login');
-        }
-      };
+    const fetchContent = async () => {
+      try {
+        const { data } = await axios.get(`http://79.143.31.216/statistics?${getParams()}`, {
+          headers: { Authorization: `Bearer ${auth.user?.access_token}` },
+        });
+        updateStatistics(data);
+      } catch {
+        navigate('/login');
+      }
+    };
 
-      fetchContent();
-    }
+    fetchContent();
   }, [shortLink, curPageSize, curPage, sortObj]);
   const columns = [
     {

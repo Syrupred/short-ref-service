@@ -5,6 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import {
   Container, Button, Form, Row, Col,
 } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import { useFormik } from 'formik';
 import { useClipboard } from 'use-clipboard-copy';
@@ -14,12 +15,17 @@ import TableStatistics from '../components/TableStatistics.jsx';
 const MainPage = () => {
   const auth = useAuth();
   const inputRef = useRef();
+  const navigate = useNavigate();
   const [shortLink, setShortLink] = useState(null);
   const clipboard = useClipboard();
   useEffect(() => {
     inputRef?.current?.focus();
   });
-
+  useEffect(() => {
+    if (!auth.user) {
+      navigate('/login');
+    }
+  }, []);
   const formik = useFormik({
     initialValues: {
       body: '',
